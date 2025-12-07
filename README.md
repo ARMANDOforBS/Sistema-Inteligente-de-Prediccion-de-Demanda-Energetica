@@ -1,4 +1,4 @@
-# Sistema Inteligente de Predicción de Demanda Energética
+<img width="1896" height="910" alt="image" src="https://github.com/user-attachments/assets/b392a012-31bf-47eb-b84d-b2a6fdc8cf3d" /># Sistema Inteligente de Predicción de Demanda Energética
 
 Este proyecto implementa un sistema híbrido para predecir el consumo de energía diario, integrando datos históricos locales con datos meteorológicos reales obtenidos de una API.
 
@@ -60,3 +60,7 @@ Para una experiencia visual e interactiva, el proyecto incluye un dashboard web 
 ```bash
 streamlit run app_dashboard.py
 ```
+
+<img width="1896" height="910" alt="image" src="https://github.com/user-attachments/assets/94ff692e-41d4-4080-babc-4e1f22fddd30" />
+
+
