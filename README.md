@@ -46,3 +46,17 @@ El flujo de ejecución se orquesta desde `main.py` y sigue estos 5 pasos secuenc
    python main.py
    ```
 3. Revisa la carpeta `output/` para ver los resultados.
+
+## 🌐 Dashboard Interactivo (UI Profesional)
+
+Para una experiencia visual e interactiva, el proyecto incluye un dashboard web construido con **Streamlit**.
+
+### Características:
+- **Carga de Archivos**: Sube tus propios datasets CSV.
+- **Geolocalización**: Selecciona entre +30 ciudades globales para ajustar la predicción al clima local.
+- **Gráficos Interactivos**: Explora los datos con zoom y tooltips usando **Plotly**.
+
+#### Ejecución del Dashboard:
+```bash
+streamlit run app_dashboard.py
+```

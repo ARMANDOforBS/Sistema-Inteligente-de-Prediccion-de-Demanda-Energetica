@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
 import os
 
 class EnergyVisualizer:
@@ -9,6 +11,7 @@ class EnergyVisualizer:
             os.makedirs(output_dir)
 
     def plot_actual_vs_predicted(self, y_test, y_pred):
+        # Matplotlib version (Static)
         plt.figure(figsize=(10, 6))
         sns.scatterplot(x=y_test, y=y_pred, color='blue', alpha=0.6)
         
@@ -27,6 +30,7 @@ class EnergyVisualizer:
         print(f"Gráfico guardado en: {save_path}")
 
     def plot_consumption_trends(self, df):
+        # Matplotlib version (Static)
         plt.figure(figsize=(12, 6))
         
         if 'Fecha' in df.columns and 'Consumo_kWh' in df.columns:
@@ -42,6 +46,7 @@ class EnergyVisualizer:
             print(f"Gráfico guardado en: {save_path}")
 
     def plot_user_distribution(self, df):
+        # Matplotlib version (Static)
         plt.figure(figsize=(8, 6))
         if 'Usuario' in df.columns:
             sns.barplot(data=df, x='Usuario', y='Consumo_kWh', estimator='mean', errorbar=None, palette='viridis')
@@ -52,3 +57,53 @@ class EnergyVisualizer:
             plt.savefig(save_path)
             plt.close()
             print(f"Gráfico guardado en: {save_path}")
+            
+    # --- Interactive Methods (Plotly) ---
+    def plot_consumption_trend_interactive(self, df):
+        plot_bg_color = 'rgba(0,0,0,0)'
+        text_color = '#e6edf3'
+        
+        fig_trend = px.line(df, x='Fecha', y='Consumo_kWh', color='Usuario',
+                            color_discrete_sequence=px.colors.qualitative.Pastel)
+        fig_trend.update_layout(
+            plot_bgcolor=plot_bg_color,
+            paper_bgcolor=plot_bg_color,
+            font_color=text_color,
+            xaxis=dict(showgrid=False),
+            yaxis=dict(showgrid=True, gridcolor='#30363d')
+        )
+        return fig_trend
+
+    def plot_user_distribution_interactive(self, df):
+        plot_bg_color = 'rgba(0,0,0,0)'
+        text_color = '#e6edf3'
+        
+        fig_bar = px.bar(df.groupby('Usuario')['Consumo_kWh'].mean().reset_index(), 
+                         x='Usuario', y='Consumo_kWh', color='Usuario',
+                         color_discrete_sequence=px.colors.qualitative.Bold)
+        fig_bar.update_layout(
+            plot_bgcolor=plot_bg_color,
+            paper_bgcolor=plot_bg_color,
+            font_color=text_color,
+            xaxis=dict(showgrid=False),
+            yaxis=dict(showgrid=False)
+        )
+        return fig_bar
+        
+    def plot_prediction_validation_interactive(self, df_pred):
+        plot_bg_color = 'rgba(0,0,0,0)'
+        text_color = '#e6edf3'
+        
+        fig_scatter = px.scatter(df_pred, x='Real', y='Predicho', opacity=0.7,
+                                 color_discrete_sequence=['#58a6ff'])
+        fig_scatter.add_trace(go.Scatter(x=[df_pred['Real'].min(), df_pred['Real'].max()], 
+                                         y=[df_pred['Real'].min(), df_pred['Real'].max()],
+                                         mode='lines', name='Ideal', line=dict(color='#fd8c73', dash='dash')))
+        fig_scatter.update_layout(
+            plot_bgcolor=plot_bg_color,
+            paper_bgcolor=plot_bg_color,
+            font_color=text_color,
+            xaxis=dict(showgrid=True, gridcolor='#30363d'),
+            yaxis=dict(showgrid=True, gridcolor='#30363d')
+        )
+        return fig_scatter
