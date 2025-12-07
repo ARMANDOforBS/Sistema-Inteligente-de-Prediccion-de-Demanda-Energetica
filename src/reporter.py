@@ -6,7 +6,6 @@ def generate_html_report(mse, r2, total_records, output_dir='output'):
     
     report_path = os.path.join(output_dir, 'reporte_final.html')
     
-    # Rutas relativas para que el HTML funcione al abrirlo
     img_trend = 'tendencia_consumo.png'
     img_dist = 'distribucion_usuarios.png'
     img_pred = 'prediccion_vs_real.png'
@@ -86,3 +85,4 @@ def generate_html_report(mse, r2, total_records, output_dir='output'):
         f.write(html_content)
     
     print(f"\n[Reporte] Reporte HTML generado exitosamente: {report_path}")
+
