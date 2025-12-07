@@ -11,7 +11,6 @@ class EnergyVisualizer:
             os.makedirs(output_dir)
 
     def plot_actual_vs_predicted(self, y_test, y_pred):
-        # Matplotlib version (Static)
         plt.figure(figsize=(10, 6))
         sns.scatterplot(x=y_test, y=y_pred, color='blue', alpha=0.6)
         
@@ -30,7 +29,6 @@ class EnergyVisualizer:
         print(f"Gráfico guardado en: {save_path}")
 
     def plot_consumption_trends(self, df):
-        # Matplotlib version (Static)
         plt.figure(figsize=(12, 6))
         
         if 'Fecha' in df.columns and 'Consumo_kWh' in df.columns:
@@ -46,7 +44,6 @@ class EnergyVisualizer:
             print(f"Gráfico guardado en: {save_path}")
 
     def plot_user_distribution(self, df):
-        # Matplotlib version (Static)
         plt.figure(figsize=(8, 6))
         if 'Usuario' in df.columns:
             sns.barplot(data=df, x='Usuario', y='Consumo_kWh', estimator='mean', errorbar=None, palette='viridis')
@@ -58,7 +55,6 @@ class EnergyVisualizer:
             plt.close()
             print(f"Gráfico guardado en: {save_path}")
             
-    # --- Interactive Methods (Plotly) ---
     def plot_consumption_trend_interactive(self, df):
         plot_bg_color = 'rgba(0,0,0,0)'
         text_color = '#e6edf3'
@@ -107,3 +103,4 @@ class EnergyVisualizer:
             yaxis=dict(showgrid=True, gridcolor='#30363d')
         )
         return fig_scatter
+
