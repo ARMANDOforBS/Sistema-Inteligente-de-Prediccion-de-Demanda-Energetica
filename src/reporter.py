@@ -1,0 +1,88 @@
+import os
+from datetime import datetime
+
+def generate_html_report(mse, r2, total_records, output_dir='output'):
+    """Genera un reporte HTML profesional con los resultados y gráficos."""
+    
+    report_path = os.path.join(output_dir, 'reporte_final.html')
+    
+    # Rutas relativas para que el HTML funcione al abrirlo
+    img_trend = 'tendencia_consumo.png'
+    img_dist = 'distribucion_usuarios.png'
+    img_pred = 'prediccion_vs_real.png'
+    
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reporte de Predicción Energética</title>
+        <style>
+            body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; }}
+            .container {{ max-width: 1000px; margin: 0 auto; background: white; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; }}
+            h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+            h2 {{ color: #34495e; margin-top: 30px; }}
+            .metrics {{ display: flex; gap: 20px; margin-bottom: 30px; }}
+            .metric-card {{ background: #ebf5fb; padding: 20px; border-radius: 8px; flex: 1; text-align: center; border: 1px solid #d6eaf8; }}
+            .metric-value {{ font-size: 2em; font-weight: bold; color: #2980b9; }}
+            .metric-label {{ color: #7f8c8d; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }}
+            .charts {{ display: flex; flex-direction: column; gap: 30px; }}
+            .chart-card {{ border: 1px solid #eee; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }}
+            img {{ max-width: 1000px; width: 100%; height: auto; border-radius: 4px; }}
+            footer {{ margin-top: 50px; text-align: center; font-size: 0.8em; color: #95a5a6; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Reporte de Predicción de Demanda Energética</h1>
+            <p><strong>Fecha del Reporte:</strong> {now}</p>
+            <p><strong>Total de Registros Procesados:</strong> {total_records}</p>
+            
+            <h2>Métricas del Modelo</h2>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value">{r2:.4f}</div>
+                    <div class="metric-label">R2 Score (Precisión)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">{mse:.2f}</div>
+                    <div class="metric-label">Mean Squared Error</div>
+                </div>
+            </div>
+            
+            <h2>Análisis Visual</h2>
+            <div class="charts">
+                <div class="chart-card">
+                    <h3>1. Comparativa Predicción vs Realidad</h3>
+                    <p>Evalúa qué tan bien se ajusta el modelo a los datos reales.</p>
+                    <img src="{img_pred}" alt="Predicción vs Real">
+                </div>
+                
+                <div class="chart-card">
+                    <h3>2. Tendencias de Consumo</h3>
+                    <p>Evolución temporal del consumo por tipo de usuario.</p>
+                    <img src="{img_trend}" alt="Tendencias de consumo">
+                </div>
+                
+                <div class="chart-card">
+                    <h3>3. Distribución por Usuario</h3>
+                    <p>Consumo promedio desagregado por categoría.</p>
+                    <img src="{img_dist}" alt="Distribución de Usuarios">
+                </div>
+            </div>
+            
+            <footer>
+                Generado automáticamente por el Sistema Inteligente de Predicción de Energía
+            </footer>
+        </div>
+    </body>
+    </html>
+    """
+    
+    with open(report_path, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    
+    print(f"\n[Reporte] Reporte HTML generado exitosamente: {report_path}")
