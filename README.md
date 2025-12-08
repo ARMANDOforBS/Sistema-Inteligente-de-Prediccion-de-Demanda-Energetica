@@ -60,8 +60,3 @@ Para una experiencia visual e interactiva, el proyecto incluye un dashboard web 
 ```bash
 streamlit run app_dashboard.py
 ```
-
-<img width="1896" height="910" alt="image" src="https://github.com/user-attachments/assets/94ff692e-41d4-4080-babc-4e1f22fddd30" />
-
-
-

@@ -85,4 +85,3 @@ def generate_html_report(mse, r2, total_records, output_dir='output'):
         f.write(html_content)
     
     print(f"\n[Reporte] Reporte HTML generado exitosamente: {report_path}")
-

@@ -151,6 +151,7 @@ def main():
             from sklearn.metrics import mean_squared_error, r2_score
             mse = mean_squared_error(y_test, y_pred)
             r2 = r2_score(y_test, y_pred)
+            rmse = mse ** 0.5
 
             st.markdown("### Métricas de Inteligencia Artificial")
             kpi1, kpi2, kpi3 = st.columns(3)
@@ -165,8 +166,8 @@ def main():
                 st.metric(
                     "Error MSE", 
                     f"{int(mse)}", 
-                    delta="Promedio Global",
-                    help="Error Cuadrático Medio. Cuanto menor sea este número, menor es el margen de error del modelo."
+                    delta=f"RMSE: ± {int(rmse)} kWh",
+                    help=f"MSE: {int(mse)}. RMSE (Raíz del Error): +/- {int(rmse)} kWh. Indica cuánto se equivoca el modelo en promedio."
                 )
             with kpi3:
                 st.metric(

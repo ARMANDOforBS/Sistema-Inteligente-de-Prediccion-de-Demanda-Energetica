@@ -34,7 +34,6 @@ def main():
     
     if not weather_data.empty:
         print(f" Datos meteorológicos obtenidos: {weather_data.shape[0]} registros para {start_date} a {end_date}.")
-        # Merge de datos (Funcional)
         final_df = pd.merge(clean_df, weather_data, on='Fecha', how='left')
         
         final_df = final_df.ffill().bfill()
